@@ -1,0 +1,14 @@
+{
+  "name": "it431-jwt-lab",
+  "version": "1.0.0",
+  "description": "IT 431 Module 8 - JWT Fundamentals Lab starter project",
+  "scripts": {
+    "sign": "node sign-token.js",
+    "verify": "node verify-token.js",
+    "expire": "node expire-demo.js",
+    "tamper": "node tamper-demo.js"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^9.0.2"
+  }
+}
