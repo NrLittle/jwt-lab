@@ -13,18 +13,22 @@
 
 const jwt = require('jsonwebtoken')
 
-const SECRET = 'your-secret-here'
+const SECRET = 'my-super-secret-key-2024'
 
 // 1. Create a token that expires in 5 seconds
 //    Hint: use { expiresIn: '5s' } in the options
-const token = '' // TODO: Create a token with 5-second expiration
+const token = jwt.sign(
+  { userId: 42, email: 'student@gmu.edu' },
+  SECRET,
+  { expiresIn: '5s' } // 5 seconds!
+)
 
 console.log('Token created with 5-second expiration')
 console.log()
 
 // 2. Verify immediately — this should succeed
 try {
-  const decoded = null // TODO: Verify the token
+  const decoded = jwt.verify(token, SECRET)
   console.log('✅ Immediate check: Token is VALID')
   console.log('   Expires at:', new Date(decoded.exp * 1000).toLocaleTimeString())
 } catch (err) {
@@ -37,7 +41,7 @@ console.log('Waiting 6 seconds...')
 
 setTimeout(() => {
   try {
-    // TODO: Try to verify the same token again
+    jwt.verify(token, SECRET)
     console.log('✅ After 6s: Token is VALID')
   } catch (err) {
     console.log('❌ After 6s: Token EXPIRED!')

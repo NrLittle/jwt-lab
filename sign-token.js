@@ -14,16 +14,18 @@
 const jwt = require('jsonwebtoken')
 
 // 1. Define a secret key (any string — in production this would be in an env variable)
-const SECRET = 'your-secret-here'
+const SECRET = 'my-super-secret-key-2024'
 
 // 2. Create a payload object with: userId (number), email (string), role (string)
 const payload = {
-  // TODO: Add your claims here
+  userId: 42,
+  email: 'student@gmu.edu',
+  role: 'user'
 }
 
 // 3. Sign the token with jwt.sign(payload, secret, options)
 //    Use { expiresIn: '1h' } as the options
-const token = '' // TODO: Replace with jwt.sign()
+const token = jwt.sign(payload, SECRET, { expiresIn: '1h' })
 
 console.log('=== JWT Created ===')
 console.log('Token:', token)
@@ -31,7 +33,7 @@ console.log()
 
 // 4. Split the token by '.' to show the three parts
 //    Hint: token.split('.')
-const parts = [] // TODO: Split the token
+const parts = token.split('.')
 
 console.log('Header (Base64):', parts[0])
 console.log('Payload (Base64):', parts[1])
@@ -40,6 +42,8 @@ console.log()
 
 // 5. Decode the payload from Base64 to show it's readable
 //    Hint: JSON.parse(Buffer.from(parts[1], 'base64').toString())
-const decodedPayload = {} // TODO: Decode the payload
+const decodedPayload = JSON.parse(
+  Buffer.from(parts[1], 'base64').toString()
+)
 
 console.log('Decoded Payload:', decodedPayload)

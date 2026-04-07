@@ -13,7 +13,7 @@
 
 const jwt = require('jsonwebtoken')
 
-const SECRET = 'your-secret-here'
+const SECRET = 'my-super-secret-key-2024'
 
 // 1. Create a normal token with role "user"
 const token = jwt.sign(
@@ -46,8 +46,7 @@ const payload = JSON.parse(
   Buffer.from(parts[1], 'base64').toString()
 )
 
-// TODO: Change payload.role to 'admin'
-
+payload.role = 'admin'
 
 // Re-encode the tampered payload
 const tamperedPayload = Buffer.from(
@@ -70,7 +69,7 @@ console.log()
 // 5. But VERIFY catches the tampering!
 //    TODO: Try jwt.verify() on the tamperedToken — it should throw an error
 try {
-  // TODO: Verify the tampered token
+  jwt.verify(tamperedToken, SECRET)
   console.log('✅ Tampered token is valid')
 } catch (err) {
   console.log('❌ Tampered token REJECTED:', err.message)

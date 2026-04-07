@@ -13,7 +13,7 @@
 
 const jwt = require('jsonwebtoken')
 
-const SECRET = 'your-secret-here'
+const SECRET = 'my-super-secret-key-2024' 
 
 // 1. Create a token (simulating what happens at login)
 const token = jwt.sign(
@@ -28,7 +28,7 @@ console.log()
 // 2. Verify with the CORRECT secret using jwt.verify(token, secret)
 //    Wrap in try/catch — verify throws an error if the token is invalid
 try {
-  const decoded = null // TODO: Use jwt.verify() here
+  const decoded = jwt.verify(token, SECRET)
   console.log('✅ Token is VALID')
   console.log('Decoded:', decoded)
   console.log('User ID:', decoded.userId)
@@ -42,7 +42,7 @@ console.log()
 
 // 3. Try verifying with a WRONG secret — this should fail
 try {
-  // TODO: Call jwt.verify() with 'wrong-secret' instead of SECRET
+  const decoded = jwt.verify(token, 'wrong-secret')
   console.log('✅ Token is VALID')
 } catch (err) {
   console.log('❌ Wrong secret:', err.message)
@@ -52,6 +52,6 @@ console.log()
 
 // 4. Decode WITHOUT verifying using jwt.decode(token)
 //    This reads the payload but does NOT check the signature!
-const noVerify = null // TODO: Use jwt.decode() here
+const noVerify = jwt.decode(token)
 console.log('Decoded without verification:', noVerify)
 console.log('⚠️  jwt.decode() does NOT check the signature!')
